@@ -10,7 +10,8 @@ const createCart = async (req,res)=>{
         if(!currencyFormat)return res.status(400).send({status:false,message:"currencyFormat is mandetry"})
         if(!price)return res.status(400).send({status:false,message:"price is mandetry"})
 
-        let createdData= await shoppingCartModel.create(data)
+       // let createdData= await shoppingCartModel.create(data)
+       let createdData = await shoppingCartModel.findOneAndUpdate({name:name,category:category},data,{upsert:true})
         return res.status(201).send({status:true,message:"created successful",data:createdData})
 
     } catch (error) {
